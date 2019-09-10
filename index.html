@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Mocha Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css"/>
+    <style type="text/css">
+        .message {
+            border: 1px solid #ddd;
+            color: white;
+            margin: auto;
+            margin-top: 20px;
+            padding: 5px 10px;
+            text-align: center;
+            width: 75%;
+        }
+
+        .message.success {
+            background-color: forestgreen;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div style="text-align: center">
+        <h1>Search</h1>
+        <input id="query" type="text" name="query" placeholder="Search Query" value="">
+        <button id="search" type="button">Search</button>
+    </div>
+    <div class="message" style="display: none"></div>
+</div>
+
+<div id="mocha"></div>
+<!-- Application Code -->
+<script src="https://unpkg.com/jquery"></script>
+<script>
+  $(function () {
+    $('#search').on('click', function () {
+      $('.message')
+          .addClass('success')
+          .html('You successfully searched for ' + $('#query').val())
+          .show();
+      setTimeout(function () {
+        $('.message')
+            .removeClass('success')
+            .hide();
+      }, 5000);
+    });
+  });
+</script>
+
+<!-- Mocha.js Code -->
+<script src="https://unpkg.com/chai/chai.js"></script>
+<script src="https://unpkg.com/mocha/mocha.js"></script>
+<script class="mocha-init">
+  mocha.setup({
+    ui: 'bdd'
+  });
+  mocha.checkLeaks();
+</script>
+<script src="test.js"></script>
+<script class="mocha-exec">
+    setTimeout(mocha.run, 1000);
+</script>
+</body>
+</html>
